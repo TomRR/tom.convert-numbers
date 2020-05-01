@@ -9,23 +9,25 @@ namespace Tom.ConvertNumbers
     {
         public string ArabicToRoman(int arabic)
         {
-			Console.WriteLine(arabic);
 			StringBuilder romanDigit = new StringBuilder();
 
 			foreach (var romanNumeral in Enum.GetValues(typeof(RomanNumeral)).Cast<RomanNumeral>().Reverse())
 			{
-				Console.WriteLine(romanNumeral + ": " + (int)romanNumeral);
-				while (arabic >= (int)romanNumeral) 
+				bool startsWith4 = arabic.ToString().StartsWith("4");
+				bool startsWith9 = arabic.ToString().StartsWith("9");
+				if(startsWith4 || startsWith9)
 				{
-					
-						arabic -= (int)romanNumeral;
-						Console.WriteLine(arabic);
 
-						romanDigit.Append(romanNumeral);
-						Console.WriteLine(arabic + "<arab : roman>" + romanDigit);
-						
-					
 				} 
+				else
+				{
+					while (arabic >= (int)romanNumeral)
+					{
+						arabic -= (int)romanNumeral;
+						romanDigit.Append(romanNumeral);
+					}
+				}
+ 
 			}
 			
 			return romanDigit.ToString();
