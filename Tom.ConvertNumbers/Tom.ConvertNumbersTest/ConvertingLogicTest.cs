@@ -12,14 +12,14 @@ namespace Tom.ConvertNumbersTest
         }
 
         [Test]
-        public void ArabicToRoman_Input10ArabicNumber_ReturnsX()
+        public void ArabicToRoman_Input4ArabicNumber_ReturnsIV()
         {
             ConvertingLogic number = new ConvertingLogic();
-            int arabic10 = 10;
+            int arabic4 = 4;
 
-            string result = number.ArabicToRoman(arabic10);
+            string result = number.ArabicToRoman(arabic4);
 
-            Assert.That(result, Is.EqualTo("X"));
+            Assert.That(result, Is.EqualTo("IV"));
         }        
         [Test]
         public void ArabicToRoman_Input8ArabicNumber_ReturnsVIII()
@@ -41,6 +41,26 @@ namespace Tom.ConvertNumbersTest
             string result = number.ArabicToRoman(arabic9);
 
             Assert.That(result, Is.EqualTo("IX"));
+        }
+        [Test]
+        public void ArabicToRoman_Input10ArabicNumber_ReturnsX()
+        {
+            ConvertingLogic number = new ConvertingLogic();
+            int arabic10 = 10;
+
+            string result = number.ArabicToRoman(arabic10);
+
+            Assert.That(result, Is.EqualTo("X"));
+        }
+        [Test]
+        public void ArabicToRoman_Input900ArabicNumber_ReturnsCM()
+        {
+            ConvertingLogic number = new ConvertingLogic();
+            int arabic900 = 900;
+
+            string result = number.ArabicToRoman(arabic900);
+
+            Assert.That(result, Is.EqualTo("CM"));
         }        
         [Test]
         public void ArabicToRoman_Input1059ArabicNumber_ReturnsMLIX()

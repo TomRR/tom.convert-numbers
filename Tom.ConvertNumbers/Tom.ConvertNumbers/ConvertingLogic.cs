@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace Tom.ConvertNumbers
@@ -10,27 +11,53 @@ namespace Tom.ConvertNumbers
         public string ArabicToRoman(int arabic)
         {
 			StringBuilder romanDigit = new StringBuilder();
+			List<RomanNumeral> romanNumeralList = GetRomanNumeralsListReverse();
 
-			foreach (var romanNumeral in Enum.GetValues(typeof(RomanNumeral)).Cast<RomanNumeral>().Reverse())
+
+			int i = 0;
+			foreach(RomanNumeral romanNumeral in romanNumeralList)
 			{
-				bool startsWith4 = arabic.ToString().StartsWith("4");
-				bool startsWith9 = arabic.ToString().StartsWith("9");
-				if(startsWith4 || startsWith9)
+				while (arabic >= (int)romanNumeral)
 				{
-
-				} 
-				else
-				{
-					while (arabic >= (int)romanNumeral)
+					bool startsWith4 = arabic.ToString().StartsWith("4");
+					bool startsWith9 = arabic.ToString().StartsWith("9");
+					Console.WriteLine(arabic);
+					if (startsWith4)
+					{
+						arabic -= (int)romanNumeral;
+						romanDigit.Append(romanNumeralList.ElementAt(i));
+						romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s4");
+					}
+					if (startsWith9)
+					{
+						int[] jjj = arabic.ToString().Split("");
+						int ibn = arabic;
+						arabic -= (int)romanNumeral;
+						romanDigit.Append(romanNumeralList.ElementAt(i));
+						romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s9");
+					}
+					else
 					{
 						arabic -= (int)romanNumeral;
 						romanDigit.Append(romanNumeral);
+						Console.WriteLine("s");
 					}
-				}
- 
+				}			
+				i++;
 			}
+			Console.WriteLine("Romannn"+romanNumeralList.ElementAt(1));
+
 			
 			return romanDigit.ToString();
+		}
+		private List<RomanNumeral> GetRomanNumeralsListReverse()
+		{
+			List<RomanNumeral> romanNumeralList = new List<RomanNumeral>();
+			foreach (var romanNumeral in Enum.GetValues(typeof(RomanNumeral)).Cast<RomanNumeral>().Reverse())
+				{
+				romanNumeralList.Add(romanNumeral);
+				}
+			return romanNumeralList;
 		}
 
         public int RomanToArabic(string roman)
