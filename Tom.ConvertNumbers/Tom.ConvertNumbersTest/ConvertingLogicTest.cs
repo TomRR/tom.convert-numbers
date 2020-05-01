@@ -12,7 +12,7 @@ namespace Tom.ConvertNumbersTest
         }
 
         [Test]
-        public void ArabicToRoman_InputArabicNumber_ReturnsCorrectString()
+        public void ArabicToRoman_Input1059ArabicNumber_ReturnsMLIX()
         {
             ConvertingLogic number = new ConvertingLogic();
 
@@ -22,7 +22,7 @@ namespace Tom.ConvertNumbersTest
         }                
         
         [Test]
-        public void RomanToArabic_InputRomanNumberal_ReturnsCorrectinteger()
+        public void RomanToArabic_InputMLIXRomanNumberal_Returns1059()
         {
             ConvertingLogic number = new ConvertingLogic();
 

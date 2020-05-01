@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Tom.ConvertNumbers
@@ -10,22 +11,24 @@ namespace Tom.ConvertNumbers
         {
 			Console.WriteLine(arabic);
 			StringBuilder romanDigit = new StringBuilder();
+
 			foreach (var romanNumeral in Enum.GetValues(typeof(RomanNumeral)).Cast<RomanNumeral>().Reverse())
 			{
 				Console.WriteLine(romanNumeral + ": " + (int)romanNumeral);
-				do
+				while (arabic >= (int)romanNumeral) 
 				{
-					if (arabic >= (int)romanNumeral)
-					{
+					
 						arabic -= (int)romanNumeral;
 						Console.WriteLine(arabic);
 
 						romanDigit.Append(romanNumeral);
 						Console.WriteLine(arabic + "<arab : roman>" + romanDigit);
-					}
-				} while (arabic <= (int)romanNumeral);
+						
+					
+				} 
 			}
-			return "";
+			
+			return romanDigit.ToString();
 		}
 
         public int RomanToArabic(string roman)
