@@ -20,7 +20,7 @@ namespace Tom.ConvertNumbersTest
 
             string result = number.ArabicToRoman(arabic4);
 
-            Assert.That(result, Is.EqualTo("IV"));
+            Assert.That(result, Is.EqualTo("IV"));         
         }        
         [Test]
         public void ArabicToRoman_Input8ArabicNumber_ReturnsVIII()
