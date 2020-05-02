@@ -13,14 +13,15 @@ namespace Tom.ConvertNumbers
             do
             {
                 string action;
-                Console.Write("\nEnter your Arabic Digit to convert or type Exit to go back\n\t-->");
+                Console.Write("\nEnter your Arabic Digit between 1 and 3999 to convert or type Exit to go back\n\t-->");
                 action = Console.ReadLine().ToUpper();
                 if (action.Equals("EXIT")) { furtherOn = false; }
+                if (Int32.Parse(action) == 0) { Console.WriteLine("some sources claim the Romans had no representation for zero, they used the word 'Nulla'."); }
                 else
                 {
                     try
                     {
-                        if (Int32.Parse(action) <= 0 || Int32.Parse(action) >= 4000)
+                        if (Int32.Parse(action) < 0 || Int32.Parse(action) > 3999)
                         {
                             Console.WriteLine("The number cannot be converted. Please enter a number between 1 and 3999.");
                         }
