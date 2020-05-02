@@ -9,7 +9,7 @@ namespace Tom.ConvertNumbers
             Menu arabicMenu = new Menu();
             Menu romanMenu = new Menu();
             arabicMenu.SetMenu(new ArabicMenu());
-            romanMenu.SetMenu(new ArabicMenu());
+            romanMenu.SetMenu(new RomanMenu());
 
             bool furtherOn = true;
             do

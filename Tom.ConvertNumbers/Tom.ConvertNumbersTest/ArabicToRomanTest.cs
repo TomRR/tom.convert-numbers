@@ -5,7 +5,7 @@ using Tom.ConvertNumbers;
 namespace Tom.ConvertNumbersTest
 {
     [TestFixture]
-    public class ConvertingLogicTest
+    public class ArabicToRomanTest
     {
         [SetUp]
         public void Setup()
@@ -73,46 +73,5 @@ namespace Tom.ConvertNumbersTest
 
             Assert.That(result, Is.EqualTo("MLIX"));
         }                
-        
-        [Test]
-        public void RomanToArabic_InputMLIXRomanNumberal_Returns10()
-        {
-            ConvertingLogic number = new ConvertingLogic();
-            string romanX = "X";
-
-            int result = number.RomanToArabic(romanX);
-            
-            Assert.That(result, Is.EqualTo(10));
-        }        
-        [Test]
-        public void RomanToArabic_InputMLIXRomanNumberal_Returns8()
-        {
-            ConvertingLogic number = new ConvertingLogic();
-            string romanVIII = "VIII";
-
-            int result = number.RomanToArabic(romanVIII);
-            
-            Assert.That(result, Is.EqualTo(8));
-        }        
-        [Test]
-        public void RomanToArabic_InputMLIXRomanNumberal_Returns9()
-        {
-            ConvertingLogic number = new ConvertingLogic();
-            string romanIX = "IX";
-
-            int result = number.RomanToArabic(romanIX);
-            
-            Assert.That(result, Is.EqualTo(9));
-        }        
-        [Test]
-        public void RomanToArabic_InputMLIXRomanNumberal_Returns1059()
-        {
-            ConvertingLogic number = new ConvertingLogic();
-            string romanMLIX = "MLIX";
-
-            int result = number.RomanToArabic(romanMLIX);
-            
-            Assert.That(result, Is.EqualTo(1059));
-        }
     }
 }

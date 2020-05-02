@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -96,64 +97,59 @@ namespace Tom.ConvertNumbers
 		public int RomanToArabic(string roman)
 		{
 			String romanNumeral = roman.ToUpper();
-			int result = 0;
-			List<RomanNumeral> romanNumerals = GetRomanNumeralsListReverse();
-			int i = 0;
-			while (((romanNumeral.Length > 0)
-						&& (i < romanNumerals.Size())))
+			if (roman == "N") return 0;
+
+			int ptr = 0;
+			ArrayList values = new ArrayList();
+			int maxDigit = 1000;
+			while (ptr < roman.Length)
 			{
-				RomanNumeral symbol = romanNumerals.get(i);
-				if (romanNumeral.StartsWith(symbol.name()))
+				char numeral = roman[ptr];
+				int digit = (int)Enum.Parse(typeof(RomanNumeral), numeral.ToString());
+
+				int nextDigit = 0;
+				if (ptr < roman.Length - 1)
 				{
-					result = (result + symbol.GetValues());
-					romanNumeral = romanNumeral.Substring(symbol.name().Length());
-				}
-				else
-				{
-					i++;
+					char nextNumeral = roman[ptr + 1];
+					nextDigit = (int)Enum.Parse(typeof(RomanNumeral), nextNumeral.ToString());
+
+					if (nextDigit > digit)
+					{
+						maxDigit = digit - 1;
+						digit = nextDigit - digit;
+						ptr++;
+					}
 				}
 
+				values.Add(digit);
+				ptr++;
 			}
 
-			if ((romanNumeral.length() > 0))
-			{
-				throw new IllegalArgumentException((input + " cannot be converted to a Roman Numeral"));
-			}
+			int total = 0;
+			foreach (int digit in values)
+				total += digit;
 
-			return result;
-			//char[] romZiff = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-			//int[] romWert = { 1, 5, 10, 50, 100, 500, 1000 };
-			//int dec = 0;
-			//int lastVal = 0, curVal;
-			//char[] ziffern = roman.ToUpper().ToCharArray();
-			//for (int i = ziffern.Length - 1; i >= 0; i--)
+			return total;
+			//List<RomanNumeral> romanNumerals = GetRomanNumeralsListReverse();
+			//int i = 0;
+			//while (((romanNumeral.Length > 0)
+			//			&& (i < romanNumerals.Count)))
 			//{
-			//	curVal = 0;
-			//	for (int j = 0; j < romZiff.Length; j++)
+			//	RomanNumeral symbol = romanNumerals.ElementAt(i);
+			//	if (romanNumeral.StartsWith(nameof(symbol)))
 			//	{
-			//		if (ziffern[i] == romZiff[j])
-			//		{
-			//			curVal = romWert[j];
-			//			break;
-			//		}
-			//	}
-
-			//	if (curVal == 0)
-			//	{
-			//		return -1;
-			//	}
-			//	if (curVal >= lastVal)
-			//	{
-			//		dec += curVal;
+			//		result = (result + (int)symbol);
+			//		romanNumeral = romanNumeral.Substring(i);
 			//	}
 			//	else
 			//	{
-			//		dec -= curVal;
-			//		lastVal = curVal;
+			//		i++;
 			//	}
 
 			//}
-			//return dec;
+
+			//return result;
+
 		}
 			private int convertStringToInteger(string input)
 		{
