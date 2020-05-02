@@ -12,43 +12,76 @@ namespace Tom.ConvertNumbers
         {
 			StringBuilder romanDigit = new StringBuilder();
 			List<RomanNumeral> romanNumeralList = GetRomanNumeralsListReverse();
-
+			int ziffer;
+			char[] romZiff = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
 
 			int i = 0;
-			foreach(RomanNumeral romanNumeral in romanNumeralList)
+
+			string tmp, rom = "";
+			for (int index = 0; arabic > 0; index += 2)
 			{
-				while (arabic >= (int)romanNumeral)
+				tmp = "";
+				ziffer = arabic % 10;
+				if (ziffer == 4)
 				{
-					bool startsWith4 = arabic.ToString().StartsWith("4");
-					bool startsWith9 = arabic.ToString().StartsWith("9");
-					Console.WriteLine(arabic);
-					if (startsWith4)
+					tmp += romZiff[index];
+					tmp += romZiff[index + 1];
+				}
+				else if (ziffer == 9)
+				{
+					tmp += romZiff[index];
+					tmp += romZiff[index + 2];
+				}
+				else
+				{
+					if (ziffer >= 5)
 					{
-						arabic -= (int)romanNumeral;
-						romanDigit.Append(romanNumeralList.ElementAt(i));
-						romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s4");
+						tmp += romZiff[index + 1];
+						ziffer -= 5;
 					}
-					if (startsWith9)
+					for (; ziffer > 0; ziffer--)
 					{
-						int[] jjj = arabic.ToString().Split("");
-						int ibn = arabic;
-						arabic -= (int)romanNumeral;
-						romanDigit.Append(romanNumeralList.ElementAt(i));
-						romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s9");
+						tmp += romZiff[index];
 					}
-					else
-					{
-						arabic -= (int)romanNumeral;
-						romanDigit.Append(romanNumeral);
-						Console.WriteLine("s");
-					}
-				}			
-				i++;
+				}
+				arabic /= 10; rom = tmp + rom;
 			}
-			Console.WriteLine("Romannn"+romanNumeralList.ElementAt(1));
+			return rom;
+			//foreach(RomanNumeral romanNumeral in romanNumeralList)
+			//{
+
+			//while (arabic >= (int)romanNumeral)
+			//{
+			//	bool startsWith4 = arabic.ToString().StartsWith("4");
+			//	bool startsWith9 = arabic.ToString().StartsWith("9");
+			//	Console.WriteLine(arabic);
+			//	if (startsWith4)
+			//	{
+			//		arabic -= (int)romanNumeral;
+			//		romanDigit.Append(romanNumeralList.ElementAt(i));
+			//		romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s4");
+			//	}
+			//	if (startsWith9)
+			//	{
+
+			//		int ibn = arabic;
+			//		arabic -= (int)romanNumeral;
+			//		romanDigit.Append(romanNumeralList.ElementAt(i));
+			//		romanDigit.Append(romanNumeralList.ElementAt(i)); Console.WriteLine("s9");
+			//	}
+			//	else
+			//	{
+			//		arabic -= (int)romanNumeral;
+			//		romanDigit.Append(romanNumeral);
+			//		Console.WriteLine("s");
+			//	}
+			//}			
+			//i++;
+			//}
+			//Console.WriteLine("Romannn"+romanNumeralList.ElementAt(1));
 
 			
-			return romanDigit.ToString();
+			//return romanDigit.ToString();
 		}
 		private List<RomanNumeral> GetRomanNumeralsListReverse()
 		{
@@ -60,71 +93,69 @@ namespace Tom.ConvertNumbers
 			return romanNumeralList;
 		}
 
-        public int RomanToArabic(string roman)
-        {
-			//roman = roman.ToUpper().Trim();
-
-			//var values = Enum.GetValues(typeof(RomanNumeral));
-			//for (int i = values.Length; i-- > 0;)
-			//{
-			//	Console.Write((int)values.GetValue(i) + " ? ");
-			//}
-			//foreach(var romanNumeral in Enum.GetValues(typeof(RomanNumeral)).Cast<RomanNumeral>().Reverse())
-			//{
-			//	if(roman <= (int)romanNumeral)
-			//	{
-
-			//	}
-			//	Console.WriteLine(romanNumeral + ": " + (int)romanNumeral);
-			//}
-
+		public int RomanToArabic(string roman)
+		{
+			String romanNumeral = roman.ToUpper();
 			int result = 0;
-			string[] romanChar = System.Text.RegularExpressions.Regex.Split(roman, "");
-			var c = RomanNumeral.C;
-			int Cletter = (int)RomanNumeral.C;
-			Console.WriteLine(c);
-			Console.WriteLine(Cletter);
-			foreach (string ci in romanChar)
+			List<RomanNumeral> romanNumerals = GetRomanNumeralsListReverse();
+			int i = 0;
+			while (((romanNumeral.Length > 0)
+						&& (i < romanNumerals.Size())))
 			{
-				result += 1;
+				RomanNumeral symbol = romanNumerals.get(i);
+				if (romanNumeral.StartsWith(symbol.name()))
+				{
+					result = (result + symbol.GetValues());
+					romanNumeral = romanNumeral.Substring(symbol.name().Length());
+				}
+				else
+				{
+					i++;
+				}
+
 			}
 
+			if ((romanNumeral.length() > 0))
+			{
+				throw new IllegalArgumentException((input + " cannot be converted to a Roman Numeral"));
+			}
 
-
-			//int ptr = 0;
-			//ArrayList values = new ArrayList();
-			//int maxDigit = 1000;
-			//while (ptr < roman.Length)
+			return result;
+			//char[] romZiff = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
+			//int[] romWert = { 1, 5, 10, 50, 100, 500, 1000 };
+			//int dec = 0;
+			//int lastVal = 0, curVal;
+			//char[] ziffern = roman.ToUpper().ToCharArray();
+			//for (int i = ziffern.Length - 1; i >= 0; i--)
 			//{
-			//	char numeral = roman[ptr];
-			//	int digit = (int)Enum.Parse(typeof(Umrechnung), numeral.ToString());
-
-			//	int nextDigit = 0;
-			//	if (ptr < roman.Length - 1)
+			//	curVal = 0;
+			//	for (int j = 0; j < romZiff.Length; j++)
 			//	{
-			//		char nextNumeral = roman[ptr + 1];
-			//		nextDigit = (int)Enum.Parse(typeof(Umrechnung), nextNumeral.ToString());
-
-			//		if (nextDigit > digit)
+			//		if (ziffern[i] == romZiff[j])
 			//		{
-			//			maxDigit = digit - 1;
-			//			digit = nextDigit - digit;
-			//			ptr++;
+			//			curVal = romWert[j];
+			//			break;
 			//		}
 			//	}
 
-			//	values.Add(digit);
-			//	ptr++;
+			//	if (curVal == 0)
+			//	{
+			//		return -1;
+			//	}
+			//	if (curVal >= lastVal)
+			//	{
+			//		dec += curVal;
+			//	}
+			//	else
+			//	{
+			//		dec -= curVal;
+			//		lastVal = curVal;
+			//	}
+
 			//}
-
-			//int total = 0;
-			//foreach (int digit in values)
-			//	total += digit;
-
-			//return total;
-			return 1;
+			//return dec;
 		}
-		private int convertStringToInteger(string input)
+			private int convertStringToInteger(string input)
 		{
 			return Int32.Parse(input);
 		}
