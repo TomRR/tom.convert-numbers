@@ -6,11 +6,33 @@ namespace Tom.ConvertNumbers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            ConvertingLogic number = new ConvertingLogic();
+            Menu arabicMenu = new Menu();
+            Menu romanMenu = new Menu();
+            arabicMenu.SetMenu(new ArabicMenu());
+            romanMenu.SetMenu(new ArabicMenu());
 
-            string result = number.ArabicToRoman(1059);
-            Console.WriteLine("Arabic to Roman " + result);
+            bool furtherOn = true;
+            do
+            {
+                string action;
+                Console.Write("\nChoose an action \n\tArabic digit to Roman digit (a)\n\tRoman digit to Arabic digit (r)\n\tExit (x)\n\t-->");
+                action = Console.ReadLine();
+                switch (action)
+                {
+                    case "a":
+                        arabicMenu.EnterMenu();
+                        break;
+                    case "r":
+                        romanMenu.EnterMenu();
+                        break;
+                    case "x":
+                        furtherOn = false;
+                        break;
+                    default:
+                        Console.WriteLine("that was not correct. please choose from the listed options");
+                        break;
+                }
+            } while (furtherOn);
         }
     }
 }

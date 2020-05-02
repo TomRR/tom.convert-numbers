@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.ComponentModel.Design;
 using Tom.ConvertNumbers;
 
 namespace Tom.ConvertNumbersTest
