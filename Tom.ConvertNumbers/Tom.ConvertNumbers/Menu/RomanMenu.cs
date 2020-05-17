@@ -8,7 +8,7 @@ namespace Tom.ConvertNumbers
 {
     class RomanMenu : IMenu
     {
-        ConvertingLogic romanToArabicLogic = new ConvertingLogic();
+        private ConvertingLogic romanToArabicLogic = new ConvertingLogic();
 
         public void EnterMenu()
         {
@@ -16,9 +16,9 @@ namespace Tom.ConvertNumbers
             do
             {
                 string action;
-                Console.Write("\nEnter your Roman Digit to convert or type Exit to go back\n\t-->");
+                Console.Write("\nEnter your Roman Digit to convert or type \"back\" to go to the main menu\n\t-->");
                 action = Console.ReadLine().ToUpper();
-                if (action.Equals("EXIT")) { furtherOn = false; }
+                if (action.Equals("BACK")) { furtherOn = false; }
                 else
                 {
                     try
